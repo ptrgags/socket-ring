@@ -43,6 +43,7 @@ where:
 
 run each command in a different terminal or tmux pane,
 all on the same host, and in this order:
+
 1. `./ring.py 10003 10001 3 end`
 2. `./ring.py 10002 10003 2 reg`
 3. `./ring.py 10001 10002 1 start`
@@ -51,10 +52,12 @@ This will connect the following:
 `Node 1 (10001) -> Node 2 (10002) -> Node 3 (10003)`
 
 You could also ommit the regular node:
+
 1. `./ring.py 10002 10001 2 end`
 2. `./ring.py 10001 10002 1 start`
 
 Adding extra regular nodes:
+
 1. `./ring.py 10005 10001 3 end`
 2. `./ring.py 10004 10005 4 reg`
 3. `./ring.py 10003 10004 3 reg`
