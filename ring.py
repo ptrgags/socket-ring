@@ -2,11 +2,22 @@
 import sys
 import socket
 
-host = 'localhost'
-input_port, output_port, node_id, node_type = sys.argv[1:]
+input_addr, output_addr, node_id, node_type = sys.argv[1:]
+input_host, input_port = input_addr.split(':')
+output_host, output_port = output_addr.split(':')
+
+#blank hosts default to localhost
+input_host = input_host if input_host else 'localhost'
+output_host = output_host if output_host else 'localhost'
+
+#Convert integer arguments
+input_port = int(input_port)
+output_port = int(output_port)
 node_id = int(node_id)
-input_addr = (host, int(input_port))
-output_addr = (host, int(output_port))
+
+#Make address tuples
+input_addr = (input_host, input_port)
+output_addr = (output_host, output_port)
 
 def create_sockets():
     input_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,7 +33,7 @@ def listen_input(input_sock, input_addr):
 
 def connect_output(output_sock, output_addr):
     output_sock.connect(output_addr)
-    print "Connected to host {} port {}".format(*output_port)
+    print "Connected to host {} port {}".format(*output_addr)
 
 def accept_connection(input_sock):
     conn, client_addr = input_sock.accept()
